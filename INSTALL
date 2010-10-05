@@ -1,6 +1,7 @@
 At first, please make two directries
 
-$ cd RAILS_ROOT
+$ git clone git://github.com/miminashi/PoBazaar.git
+$ cd PoBazaar
 $ mkdir tmp
 $ mkdir log
 $ ruby script/server
