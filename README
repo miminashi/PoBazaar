@@ -7,7 +7,7 @@
 
 == Welcome to PoBazaar
 
-Edit gettext translation resource file by bazzar style.
+Edit gettext translation resource file (.po) by bazzar style.
 We use it to localize Noosfero.
 
 Which licence should I choose?
