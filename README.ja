@@ -1,2 +1,15 @@
-複数人でローカライズ作業（.poファイルの編集）を行うためのツールです。
+-----------------------------
+2010 Chukyo Univ Miyata Lab
+2010 Noosfero Japanese Team
+2010 ORFITRAS
+2010 Convivialnet
+-----------------------------
+
+== Welcome to PoBazaar
+
+gettextの翻訳リソースファイル（.po）を複数人で編集するためのWebアプリケーションです。
+Noosferoのローカライズ作業で使ってます。
+
+ライセンスどうすればいいのかとかよくわかりません。
+Scratch関係のプロジェクトで使ってるからMITライセンスにでもしとけばいいのかな。
 
