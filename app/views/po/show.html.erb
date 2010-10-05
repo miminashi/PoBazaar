@@ -1,0 +1,9 @@
+<h1><%= @po.name %></h1>
+<p>has <%= @po.count %>messages</p>
+<b>Header:</b>
+<p><%= @po.header.gsub(/\n/, '<br>') %></p>
+
+<%= link_to 'Edit header', :action => 'edit', :id => @po.id %><br>
+<%= link_to 'Messages', :controller => 'words', :action => 'show_messages', :id => @po.id %><br>
+<%= link_to 'back to search result', :action => 'index' %>
+

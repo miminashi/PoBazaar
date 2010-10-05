@@ -1,0 +1,35 @@
+<b>Po:</b>
+<p><%= @po.name %></p>
+
+<b>Place:</b>
+<p><%= @word.place.gsub(/\n/, '<br>') %></p>
+
+<b>Msgid:</b>
+<p><%= @word.msgid %></p>
+
+<% if @word.msg_type == 'msgstr' %>
+  <b>Msgstr:</b>
+  <p><%= @word.msgstr %></p>
+<% elsif @word.msg_type == 'msgstrs' %>
+  <b>Msgid_plural:</b>
+  <p><%= @word.msgid_plural %></p>
+  <% @word.msgstrs.each_index do |i| %>
+    <b>Msgstr[<%= i.to_s %>]:</b>
+    <p><%= @word.msgstrs[i] %></p>
+  <% end %>
+<% end %>
+
+<%= link_to 'Edit this message', :action => 'edit', :id => @word.id %>
+
+<p>
+  <% if @word.id > 1 %>
+    <%= link_to 'Prev', :action => 'show', :id => @word.id - 1 %>
+  <% end %>
+  <% if @word.id > 1 and @word.id < @po.count %>
+    |
+  <% end %>
+  <% if @word.id < @po.count %>
+    <%= link_to 'Next', :action => 'show', :id => @word.id + 1 %>
+  <% end %>
+</p>
+

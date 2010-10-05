@@ -1,0 +1,13 @@
+<h1>PO files</h1>
+<table>
+  <th>Name</th>
+  <th>Messages</th>
+  <% @pos.each do |po| %>
+    <tr>
+      <td><%= po.name %></td>
+      <td><%= po.count.to_s %></td>
+      <td><%= link_to '詳細', :action => 'show', :id => po.id %></td>
+    </tr>
+  <% end %>
+</table>
+

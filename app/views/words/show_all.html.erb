@@ -1,0 +1,19 @@
+<h1><%= @po.name %></h1>
+<p><%= @po.count %>messages</p>
+
+<table>
+  <tr>
+    <th>Msgid</th>
+    <th>Msgstr</th>
+  </tr>
+
+<% @words.each do |word| %>
+  <tr>
+    <td><%=h word.msgid %></td>
+    <td><%=h word.msgstr %></td>
+    <td><%= link_to '詳細', word %></td>
+    <td><%= link_to '編集', edit_word_path(word) %></td>
+  </tr>
+<% end %>
+</table>
+
