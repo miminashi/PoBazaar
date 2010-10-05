@@ -1,6 +1,7 @@
-cd RAILS_ROOT
-mkdir tmp
-mkdir log
+At first, please make two directries
 
-ruby script/server
+$ cd RAILS_ROOT
+$ mkdir tmp
+$ mkdir log
+$ ruby script/server
 
