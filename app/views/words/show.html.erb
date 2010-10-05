@@ -32,4 +32,5 @@
     <%= link_to 'Next', :action => 'show', :id => @word.id + 1 %>
   <% end %>
 </p>
+<%= link_to "Back to #{@po.name}'s messages", :action => 'show_messages', :id => @po.id, :page => session[:prev_page] %>
 

@@ -4,10 +4,10 @@
   <th>Messages</th>
   <% @pos.each do |po| %>
     <tr>
-      <td><%= po.name %></td>
+      <td><%= link_to po.name, :action => 'show', :id => po.id %></td>
       <td><%= po.count.to_s %></td>
-      <td><%= link_to '詳細', :action => 'show', :id => po.id %></td>
     </tr>
   <% end %>
 </table>
+<%= link_to 'New', :action => 'new' %>
 

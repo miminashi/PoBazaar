@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101005174903) do
+ActiveRecord::Schema.define(:version => 20101005205603) do
 
   create_table "pos", :force => true do |t|
     t.string   "name"
@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20101005174903) do
     t.datetime "updated_at"
     t.integer  "count"
     t.text     "header"
+    t.binary   "file"
   end
 
   create_table "words", :force => true do |t|

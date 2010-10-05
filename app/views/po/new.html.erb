@@ -1,2 +1,9 @@
-<h1>Po#new</h1>
-<p>Find me in app/views/po/new.html.erb</p>
+<h1>Upload .po file</h1>
+<% form_for @po, :url => {:action => 'create'}, :html => {:multipart => true} do |f|%>
+  <%= f.label 'Name:' %><br>
+  <%= f.text_field :name %><br>
+  <%= f.label 'Choose a .po file:' %><br>
+  <%= f.file_field :file %><br>
+  <%= f.submit 'Create' %>
+<% end %>
+

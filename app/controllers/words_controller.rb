@@ -27,6 +27,7 @@ class WordsController < ApplicationController
     #@words = Word.find_all_by_poid(params[:id])
     #@words = Word.paginate_all_by_poid(params[:id], :page => params[:page], :per_page => 10)
     @words = Word.paginate(:page => params[:page], :per_page => 20, :conditions => ["poid = ?", params[:id]])
+    session[:prev_page] = params[:page]
     @po = Po.find(params[:id])
   end
 
