@@ -51,7 +51,8 @@ class PoController < ApplicationController
             @po.count = Word.count(:all, :conditions => ["poid = ?", @po.id])
             @po.save
           }
-        rescue
+        rescue => e
+          p e
           flash[:error] = 'データベースへの格納に失敗しました'
           redirect_to :action => 'show', :id => @po.id
         else

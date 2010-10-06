@@ -1,8 +1,15 @@
 At first, please make two directries
 
+$ gem install will_paginate
 $ git clone git://github.com/miminashi/PoBazaar.git
 $ cd PoBazaar
 $ mkdir tmp
 $ mkdir log
+
+Test run:
+$ rake db:migrate
 $ ruby script/server
+
+Production:
+$ rake db:migrate RAILS_ENV=production
 
