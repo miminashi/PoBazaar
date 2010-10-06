@@ -2,12 +2,6 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.xml
   def index
-    #@words = Word.all
-
-    #respond_to do |format|
-    #  format.html # index.html.erb
-    #  format.xml  { render :xml => @words }
-    #end
     redirect_to :controller => 'po', :action => 'index'
   end
 
@@ -24,8 +18,6 @@ class WordsController < ApplicationController
   end
 
   def show_messages
-    #@words = Word.find_all_by_poid(params[:id])
-    #@words = Word.paginate_all_by_poid(params[:id], :page => params[:page], :per_page => 10)
     @words = Word.paginate(:page => params[:page], :per_page => 20, :conditions => ["poid = ?", params[:id]])
     session[:prev_page] = params[:page]
     @po = Po.find(params[:id])

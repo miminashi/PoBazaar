@@ -12,7 +12,6 @@ class PoTools
 
   def porip(contents)
     # 最初にplaceが出現したらheader = falseにする
-    #
     is_header = true
     prev = :header
     words = []
@@ -22,32 +21,19 @@ class PoTools
     word = {}
     contents.each do |line|
       $line_num += 1
-      #p prev
-      #p line
       if line =~ /^\#:/
         raise 'ParseError' unless (prev == :msgstr or prev == :msgstr_n or prev == :header or prev == :blank or prev == :place)
     
-        #if word[:place]
-        #  place = word[:place]
-        #else
-        #  place = ''
-        #end
-        #place << line
-        #word[:place] = place
         if word[:place]
           word[:place] << line
         else
-          #word = {}  # 一時保存用hashを初期化
           word[:place] = line
         end
     
         prev = :place
         is_header = false
-        #puts "#{header.to_s}, place: #{line}"
       elsif line =~ /^\#/
         prev = :comment
-    
-        #puts "#{header.to_s}, comment: #{line}"
       elsif line =~ /^\s+$/  # 空行の場合
         if prev == :msgstr_n or prev == :msgstr
           words << word
@@ -59,19 +45,9 @@ class PoTools
         word[:msgid_plural] = get_double_quated_string(line)
         prev = :msgid_plural
       elsif line =~ /^msgid.+$/
-        #p line
         # headerのうちは単に無視する
         unless is_header
-          #begin   # test code
-            raise 'ParseError' unless prev == :place
-          #rescue  # test code
-          #  p line  # test code
-          #  p words.size  # test code
-          #  exit(1)  # test code
-          #end  # test code
-          #p line.split('"')[1]
-          #word[:msgid] = line.split('"')[1]
-          #word[:msgid] = line.scan(/\".+\"$/)[0][1..-2]
+          raise 'ParseError' unless prev == :place
           word[:msgid] = get_double_quated_string(line)
           prev = :msgid
         end
@@ -85,27 +61,16 @@ class PoTools
         elsif prev == :msgstr
           word[:msgstr] << get_double_quated_string(line)
           prev = :msgstr
-        #elsif prev == :msgstr_n
         end
       elsif line =~ /^msgstr\[[0-9]\].+$/
-        #begin
-          raise 'ParseError' unless (prev == :msgid_plural or prev == :msgstr_n)
-        #rescue
-        #  p line
-        #  p line_num
-        #  exit(1)
-        #end
+        raise 'ParseError' unless (prev == :msgid_plural or prev == :msgstr_n)
         if $& =~ /[0-9]+/
           n = $&.to_i
-          #p n
           unless word[:msgstrs]
-            #p line
             word[:msgstrs] = []
           end
-          #word[:msgstrs][n] = line.split('"')[1]
           word[:msg_type] = 'msgstrs'
           word[:msgstrs][n] = get_double_quated_string(line)
-          #p word[:msgstrs]
         else
           raise 'ParseError'
         end
@@ -113,24 +78,12 @@ class PoTools
       elsif line =~ /^msgstr.+$/
         # headerのうちは単に無視する
         unless is_header
-          #begin
-            raise 'ParseError' unless prev == :msgid
-          #rescue
-          #  p line
-          #  p prev
-          #  exit(1)
-          #end
-          #p line.split('"')[1]
-          #word[:msgstr] = line.split('"')[1]
+          raise 'ParseError' unless prev == :msgid
           word[:msg_type] = 'msgstr'
           word[:msgstr] = get_double_quated_string(line)
-          #words << word  # 1セクションを全セクションに追加して
-          #word = {}      # 一時保持用ハッシュを初期化
           prev = :msgstr
-          #puts "#{header.to_s}, comment: #{line}"
         end
       else
-        #puts "#{header.to_s}, else: #{line}"
       end
     
       if is_header == true
@@ -162,20 +115,12 @@ class PoTools
   end
   
   def get_double_quated_string(line)
-    begin
-      return line.scan(/\".*\"$/)[0][1..-2]
-    rescue
-      p $line_num
-      p line
-      exit(1)
-    end
+    return line.scan(/\".*\"$/)[0][1..-2]
   end
 
 end
 
 if __FILE__ == $0
-  #require 'pp'
-
   contents = []
   File.open('noosfero.po', 'r') do |f|
     contents = f.readlines
@@ -183,10 +128,6 @@ if __FILE__ == $0
 
   potool = PoTools.new
   header, words = potool.porip(contents)
-
-  #pp words
-  #print header
-  #puts "#{words.size} words analyzed"
 
   print(potool.pobuild(header, words))
 end

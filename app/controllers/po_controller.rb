@@ -1,6 +1,3 @@
-require 'pp'
-#require 'po'
-
 class PoController < ApplicationController
   def index
     @pos = Po.find(:all)
@@ -13,18 +10,7 @@ class PoController < ApplicationController
   def create
     po_lines = []
     begin
-      #p 'into begin'
-      #po_path = RAILS_ROOT + '/lib/dev/noosfero.po'
-      #File.open(po_path, 'r') do |f|
-      #  po_lines = f.readlines
-      #end
-      #p params[:po][:name]
-      #p params[:po][:file].original_filename
-      #p params[:po][:file].size
-      #raise 'Dummy Error'
-
       po_lines = params[:po][:file].readlines
-      #pp po_lines[0..30]
     rescue
       flash[:error] = 'POファイルのオープンに失敗しました'
       redirect_to :action => 'index'
@@ -42,7 +28,6 @@ class PoController < ApplicationController
         begin
           Po.transaction {
             @po = Po.new
-            #@po.name = 'noosfero.po'
             @po.name = params[:po][:name]
             @po.header = header
             @po.save
@@ -80,7 +65,6 @@ class PoController < ApplicationController
 
   def show
     @po = Po.find(params[:id])
-    #@count = Word.count(:conditions => "name = #{@po.name}")
   end
 
   def edit
@@ -109,7 +93,6 @@ class PoController < ApplicationController
     end
     potool = PoTools.new
     stream = StringIO.new(potool.pobuild(header, messages))
-    #stream = tmp.new(potool.pobuild(header, messages))
     send_data stream.string, :filename => "#{po.name}.po"
   end
 
